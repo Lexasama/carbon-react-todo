@@ -1,3 +1,6 @@
+@import '~todomvc-app-css/index.css';
+@import '~todomvc-common/base.css';
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
