@@ -1,12 +1,8 @@
 import {KeyboardEvent, useState} from "react";
-import Todo from "./Todo";
-import TodoItem from "./TodoItem/TodoItem";
-import TodoListFooter from "./TodoListFooter/TodoListFooter";
-import classNames from "classnames";
-import {TodoListFilter} from "./TodoListFilter";
-import TodoListHeader from "./TodoListHeader/TodoListHeader";
+import Todo from "../Todo";
+import {TodoListFilter} from "../TodoListFilter";
 
-function TodoList() {
+const useTodoHook = () => {
 
     const ESC_KEY = "Escape";
     const ENTER_KEY = 'Enter';
@@ -127,45 +123,21 @@ function TodoList() {
         enterEditMode(id!);
     }
 
-    return (
-        <div>
-            <header className="header">
-                <h1>todos</h1>
-                <TodoListHeader onAdd={(e) => handleAdd(e)}
-                                onFocus={() => exitEditMode()}
-                />
-            </header>
-            <section className="main">
-                <input type="checkbox" className="toggle-all" id="toggle-all"/>
-                <label htmlFor="toggle-all">Mark all as complete</label>
-                <ul className="todo-list">
-                    {getFilteredList().map(todo => {
-                        return (
-                            <li className={classNames({
-                                'completed': todo.completed,
-                                'editing': (editedTodo.editing && editedTodo.id === todo.id)
-                            })} key={todo.id}>
-                                <TodoItem
-                                    todo={todo}
-                                    onToggle={() => toggleIsCompleted(todo.id)}
-                                    onRemove={() => handleRemove(todo.id)}
-                                    onEnterEdit={(id?) => toggleEditMode(id)}
-                                    onEdit={(todo) => handleEdit(todo)}
-                                    isEdited={editedTodo.editing && editedTodo.id === todo.id}
-                                />
-                            </li>
-                        )
-                    })}
-                </ul>
-            </section>
-            <TodoListFooter
-                itemLeft={todoList.length}
-                onFilterChange={(filter) => handleFilterChange(filter as TodoListFilter)}
-                selectedFilter={selectedFilter}
-                onClear={() => handleClearCompleted()}
-            />
-        </div>
-    );
+    return {
+        handleAdd,
+        exitEditMode,
+        getFilteredList,
+        editedTodo,
+        toggleIsCompleted,
+        handleRemove,
+        handleFilterChange,
+        toggleEditMode,
+        handleEdit,
+        todoList,
+        selectedFilter,
+        handleClearCompleted
+    }
+
 }
 
-export default TodoList;
+export default useTodoHook;

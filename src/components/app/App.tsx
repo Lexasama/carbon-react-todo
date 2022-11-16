@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import TodoList from "../todos/TodoList";
+import TodoPage from "../todos/todo-page/TodoPage";
 
 function App() {
     return (
         <div className="todoapp">
             <main>
-                <TodoList/>
+                <TodoPage/>
             </main>
             <footer className="info">
                 <p><a href="#"></a></p>
