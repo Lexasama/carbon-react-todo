@@ -47,12 +47,17 @@ const useTodoHook = () => {
             resetInput(event.currentTarget);
         }
         if (event.key === ENTER_KEY) {
+            const title = (event.currentTarget.value).trim();
+
+            if (title.length === 0) {
+                return;
+            }
             let newId = 0;
             if (todoList.length > 0) {
                 newId = todoList.sort((a, b) => a.id > b.id ? -1 : 1)[0].id + 1;
             }
             setTodoList(todoList.concat({
-                title: event.currentTarget.value,
+                title: title,
                 id: newId,
                 url: "",
                 completed: false,
