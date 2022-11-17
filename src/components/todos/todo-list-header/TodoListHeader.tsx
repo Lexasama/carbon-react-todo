@@ -19,7 +19,7 @@ function TodoListHeader(props: TodoListHeaderProps) {
         if (event.key === ENTER_KEY) {
             const title = (event.currentTarget.value).trim();
 
-            if (title.length === 0) {
+            if (title.trim().length === 0) {
                 return;
             }
             props.onAdd(title);

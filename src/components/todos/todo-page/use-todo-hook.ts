@@ -4,9 +4,8 @@ import {TodoListFilter} from "../TodoListFilter";
 
 const useTodoHook = () => {
 
-    const todos: Todo[] = [];
 
-    const [todoList, setTodoList] = useState<Array<Todo>>(todos);
+    const [todoList, setTodoList] = useState<Array<Todo>>([]);
     const [selectedFilter, setFilter] = useState(TodoListFilter.ALL);
     const [editedTodo, setEdited] = useState<{ editing: boolean, id: number }>({editing: false, id: 0});
 
@@ -36,22 +35,24 @@ const useTodoHook = () => {
         exitEditMode();
     };
 
-    function handleAdd(title: string) {
+    function add(title: string) {
 
-        let newId = 0;
-        if (todoList.length > 0) {
-            newId = todoList.sort((a, b) => a.id > b.id ? -1 : 1)[0].id + 1;
+        if (title.trim().length > 0) {
+            let newId = 0;
+            if (todoList.length > 0) {
+                newId = todoList.sort((a, b) => a.id > b.id ? -1 : 1)[0].id + 1;
+            }
+            setTodoList(todoList.concat({
+                title: title,
+                id: newId,
+                url: "",
+                completed: false,
+                order: newId + 1
+            }));
         }
-        setTodoList(todoList.concat({
-            title: title,
-            id: newId,
-            url: "",
-            completed: false,
-            order: newId + 1
-        }));
     }
 
-    function toggleIsCompleted(id: number) {
+    function completed(id: number) {
         const newList = todoList.map((todo) => {
             if (todo.id === id) {
                 return {
@@ -68,7 +69,7 @@ const useTodoHook = () => {
         setTodoList(todoList.filter((todo) => todo.id !== id));
     }
 
-    function handleClearCompleted() {
+    function clearCompleted() {
         setTodoList(todoList.filter((todo) => !todo.completed));
     }
 
@@ -106,20 +107,20 @@ const useTodoHook = () => {
     };
 
     return {
+        add,
         completeAll,
         completedItems,
-        handleAdd,
+        editedTodo,
         exitEditMode,
         getFilteredList,
-        editedTodo,
-        toggleIsCompleted,
-        handleRemove,
-        handleFilterChange,
-        toggleEditMode,
+        clearCompleted,
         handleEdit,
-        todoList,
+        handleFilterChange,
+        handleRemove,
         selectedFilter,
-        handleClearCompleted
+        todoList,
+        toggleEditMode,
+        completed,
     };
 
 }

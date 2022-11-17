@@ -10,18 +10,18 @@ function TodoPage() {
     const {
         completeAll,
         completedItems,
-        handleAdd,
+        add,
         exitEditMode,
         getFilteredList,
         editedTodo,
-        toggleIsCompleted,
+        completed,
         handleRemove,
         handleFilterChange,
         toggleEditMode,
         handleEdit,
         todoList,
         selectedFilter,
-        handleClearCompleted
+        clearCompleted
     } = useTodoHook();
 
     const todoListProps: TodoListProps = {
@@ -30,7 +30,7 @@ function TodoPage() {
         filteredList: getFilteredList,
         handleEdit,
         handleRemove,
-        toggleCompleted: toggleIsCompleted,
+        toggleCompleted: completed,
         toggleEditMode
     }
 
@@ -38,7 +38,7 @@ function TodoPage() {
         <section className="todoApp">
             <header className="header">
                 <h1>todos</h1>
-                <TodoListHeader onAdd={(e) => handleAdd(e)}
+                <TodoListHeader onAdd={(e) => add(e)}
                                 onFocus={() => exitEditMode()}
                 />
             </header>
@@ -53,7 +53,7 @@ function TodoPage() {
                             itemLeft={todoList.length}
                             onFilterChange={(filter: TodoListFilter) => handleFilterChange(filter)}
                             selectedFilter={selectedFilter}
-                            onClear={() => handleClearCompleted()}
+                            onClear={() => clearCompleted()}
                             completedItems={completedItems}
                         />
                     </>
