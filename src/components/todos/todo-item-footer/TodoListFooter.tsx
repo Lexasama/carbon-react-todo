@@ -16,23 +16,29 @@ function TodoListFooter(props: TodoListFooterProps) {
         return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
     }
 
-    return (<footer className="footer">
-        <span className="todo-count">{itemLestText(props.itemLeft)}</span>
-        <ul className="filters">
-            {Object.values<string>(TodoListFilter).map((filter) => {
-                return (
-                    <li key={filter}>
-                        <a href="src/components/todos/TodoListFooter/TodoListFooter#"
-                           className={classNames({"selected": props.selectedFilter === filter})}
-                           onClick={() => props.onFilterChange(filter as TodoListFilter)}
-                        >{normalize(filter)}</a>
-                    </li>
+    return (
+        <footer className="footer">
+            <span className="todo-count">{itemLestText(props.itemLeft)}</span>
+            <ul className="filters">
+                {Object.values<string>(TodoListFilter).map((filter) => {
+                    return (
+                        <li key={filter}>
+                            <a href="src/components/todos/TodoListFooter/TodoListFooter#"
+                               className={classNames({"selected": props.selectedFilter === filter})}
+                               onClick={() => props.onFilterChange(filter as TodoListFilter)}
+                            >{normalize(filter)}</a>
+                        </li>
+                    );
+                })}
+            </ul>
+            {
 
-                );
-            })}
-        </ul>
-        <button className="clear-completed" onClick={() => props.onClear()}>Clear completed</button>
-    </footer>);
+                props.completedItems !== 0 &&
+                (
+                    <button className="clear-completed" onClick={() => props.onClear()}>Clear completed</button>
+                )
+            }
+        </footer>);
 }
 
 

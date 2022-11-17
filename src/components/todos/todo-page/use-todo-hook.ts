@@ -28,6 +28,8 @@ const useTodoHook = () => {
     const [editedTodo, setEdited] = useState<{ editing: boolean, id: number }>({editing: false, id: 0})
 
 
+    const completedItems = todoList.filter((t) => t.completed).length
+
     const handleEdit = (todo: Todo) => {
         const newList = todoList.map((t) => {
             if (t.id === todo.id) {
@@ -124,6 +126,7 @@ const useTodoHook = () => {
     }
 
     return {
+        completedItems,
         handleAdd,
         exitEditMode,
         getFilteredList,
