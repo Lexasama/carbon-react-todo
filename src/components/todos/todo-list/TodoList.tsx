@@ -6,7 +6,7 @@ function TodoList(props: TodoListProps) {
 
     return (
         <>
-            <input type="checkbox" className="toggle-all" id="toggle-all"/>
+        <input type="checkbox" className="toggle-all" id="toggle-all" onClick={() => props.completeAll()}/>
             <label htmlFor="toggle-all">Mark all as complete</label>
             <ul className="todo-list">
                 {props.filteredList().map(todo => {

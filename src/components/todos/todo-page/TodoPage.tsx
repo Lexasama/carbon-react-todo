@@ -8,6 +8,7 @@ import TodoListProps from "../todo-list/TodoListProps";
 function TodoPage() {
 
     const {
+        completeAll,
         completedItems,
         handleAdd,
         exitEditMode,
@@ -24,6 +25,7 @@ function TodoPage() {
     } = useTodoHook();
 
     const todoListProps: TodoListProps = {
+        completeAll,
         editedTodo,
         filteredList: getFilteredList,
         handleEdit,
