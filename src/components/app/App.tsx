@@ -4,15 +4,14 @@ import TodoPage from "../todos/todo-page/TodoPage";
 
 function App() {
     return (
-        <div className="todoapp">
-            <main>
-                <TodoPage/>
-            </main>
+        <>
+            <TodoPage/>
             <footer className="info">
-                <p><a href="#"></a></p>
-                <p><a href="#"></a></p>
+                <p>Double-click to edit a todo</p>
+                <p>Created by <a href="http://todomvc.com">Axel S.</a></p>
+                <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
             </footer>
-        </div>
+        </>
     );
 }
 
