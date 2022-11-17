@@ -23,13 +23,15 @@ function TodoItem(props: TodoListItemProps) {
 
     return (
         <>
-            <div className={"view"}>
+            <div className="view">
                 <input type="checkbox" checked={todo.completed}
                        onChange={() => props.onToggle(props.todo.id)}
                        className="toggle" id={`todo-${props.todo.id}`}
-                       data-testid={"todo-toggle"}
+                       data-testid="todo-toggle"
                 />
-                <label onDoubleClick={() => props.onEnterEdit(todo.id)}>{props.todo.title}</label>
+                <label onDoubleClick={() => props.onEnterEdit(todo.id)}>
+                    {props.todo.title}
+                </label>
                 <button className="destroy" onClick={() => props.onRemove(props.todo.id)}></button>
             </div>
             {
@@ -39,6 +41,7 @@ function TodoItem(props: TodoListItemProps) {
                                           defaultValue={todo.title}
                                           onBlur={onBlur}
                                           onKeyUp={onKeyUp}
+                                          data-testid="todo-edit"
                                           autoFocus/>)
             }
         </>
