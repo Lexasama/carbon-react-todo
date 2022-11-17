@@ -8,6 +8,7 @@ import TodoListProps from "../todo-list/TodoListProps";
 function TodoPage() {
 
     const {
+        completedItems,
         handleAdd,
         exitEditMode,
         getFilteredList,
@@ -32,7 +33,7 @@ function TodoPage() {
     }
 
     return (
-        <div>
+        <section className="todoApp">
             <header className="header">
                 <h1>todos</h1>
                 <TodoListHeader onAdd={(e) => handleAdd(e)}
@@ -47,8 +48,9 @@ function TodoPage() {
                 onFilterChange={(filter) => handleFilterChange(filter as TodoListFilter)}
                 selectedFilter={selectedFilter}
                 onClear={() => handleClearCompleted()}
+                completedItems={completedItems}
             />
-        </div>
+        </section>
     );
 }
 
