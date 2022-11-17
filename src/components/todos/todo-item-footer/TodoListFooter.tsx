@@ -23,7 +23,7 @@ function TodoListFooter(props: TodoListFooterProps) {
                 {Object.values<string>(TodoListFilter).map((filter) => {
                     return (
                         <li key={filter}>
-                            <a href="src/components/todos/TodoListFooter/TodoListFooter#"
+                            <a href="#"
                                className={classNames({"selected": props.selectedFilter === filter})}
                                onClick={() => props.onFilterChange(filter as TodoListFilter)}
                             >{normalize(filter)}</a>
