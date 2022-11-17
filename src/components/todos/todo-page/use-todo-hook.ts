@@ -1,32 +1,26 @@
-import {KeyboardEvent, useState} from "react";
+import {useState} from "react";
 import Todo from "../Todo";
 import {TodoListFilter} from "../TodoListFilter";
 
 const useTodoHook = () => {
 
-    const ESC_KEY = "Escape";
-    const ENTER_KEY = 'Enter';
-    const todos: Todo[] = [
-        {
-            title: "test",
-            id: 0,
-            url: "",
-            completed: false,
-            order: 1
-        },
-        {
-            title: "test1",
-            id: 1,
-            url: "",
-            completed: true,
-            order: 2
-        }];
+    const todos: Todo[] = [];
 
     const [todoList, setTodoList] = useState<Array<Todo>>(todos);
     const [selectedFilter, setFilter] = useState(TodoListFilter.ALL);
-    const [editedTodo, setEdited] = useState<{ editing: boolean, id: number }>({editing: false, id: 0})
+    const [editedTodo, setEdited] = useState<{ editing: boolean, id: number }>({editing: false, id: 0});
 
-    const completedItems = todoList.filter((t) => t.completed).length
+    const completedItems = todoList.filter((t) => t.completed).length;
+
+    const completeAll = () => {
+        const newList = todoList.map((t) => {
+            if (!t.completed) {
+                return {...t, completed: true}
+            }
+            return t;
+        });
+        setTodoList(newList);
+    }
 
     const handleEdit = (todo: Todo) => {
         const newList = todoList.map((t) => {
@@ -40,37 +34,22 @@ const useTodoHook = () => {
         });
         setTodoList(newList);
         exitEditMode();
-    }
+    };
 
-    function handleAdd(event: KeyboardEvent<HTMLInputElement>) {
-        if (event.key === ESC_KEY) {
-            resetInput(event.currentTarget);
+    function handleAdd(title: string) {
+
+        let newId = 0;
+        if (todoList.length > 0) {
+            newId = todoList.sort((a, b) => a.id > b.id ? -1 : 1)[0].id + 1;
         }
-        if (event.key === ENTER_KEY) {
-            const title = (event.currentTarget.value).trim();
-
-            if (title.length === 0) {
-                return;
-            }
-            let newId = 0;
-            if (todoList.length > 0) {
-                newId = todoList.sort((a, b) => a.id > b.id ? -1 : 1)[0].id + 1;
-            }
-            setTodoList(todoList.concat({
-                title: title,
-                id: newId,
-                url: "",
-                completed: false,
-                order: newId + 1
-            }));
-            resetInput(event.currentTarget);
-        }
+        setTodoList(todoList.concat({
+            title: title,
+            id: newId,
+            url: "",
+            completed: false,
+            order: newId + 1
+        }));
     }
-
-    const resetInput = (e: HTMLInputElement) => {
-        e.value = "";
-    }
-
 
     function toggleIsCompleted(id: number) {
         const newList = todoList.map((todo) => {
@@ -85,13 +64,11 @@ const useTodoHook = () => {
         setTodoList(newList);
     }
 
-
     function handleRemove(id: number) {
         setTodoList(todoList.filter((todo) => todo.id !== id));
     }
 
     function handleClearCompleted() {
-
         setTodoList(todoList.filter((todo) => !todo.completed));
     }
 
@@ -118,7 +95,7 @@ const useTodoHook = () => {
 
     const exitEditMode = () => {
         setEdited({editing: false, id: 0})
-    }
+    };
 
     const toggleEditMode = (id?: number) => {
         if (id === undefined) {
@@ -126,9 +103,10 @@ const useTodoHook = () => {
             exitEditMode();
         }
         enterEditMode(id!);
-    }
+    };
 
     return {
+        completeAll,
         completedItems,
         handleAdd,
         exitEditMode,
@@ -142,7 +120,7 @@ const useTodoHook = () => {
         todoList,
         selectedFilter,
         handleClearCompleted
-    }
+    };
 
 }
 

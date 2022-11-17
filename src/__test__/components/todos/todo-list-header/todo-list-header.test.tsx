@@ -30,11 +30,14 @@ describe("TodoListHeader should", () => {
     });
 
     it('call add key is down', async function () {
+
+        const title = "title";
         render(<TodoListHeader  {...props}/>);
         const inputEl = screen.getByRole('textbox');
-        userEvent.type(inputEl, 't')
+        userEvent.type(inputEl, `${title}{enter}`)
 
         expect(props.onAdd).toBeCalledTimes(1);
+        expect(props.onAdd).toHaveBeenNthCalledWith(1, title);
     });
 
 })
