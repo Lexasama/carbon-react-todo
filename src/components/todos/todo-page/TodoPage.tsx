@@ -40,16 +40,23 @@ function TodoPage() {
                                 onFocus={() => exitEditMode()}
                 />
             </header>
-            <section className="main">
-                <TodoList {...todoListProps}/>
-            </section>
-            <TodoListFooter
-                itemLeft={todoList.length}
-                onFilterChange={(filter) => handleFilterChange(filter as TodoListFilter)}
-                selectedFilter={selectedFilter}
-                onClear={() => handleClearCompleted()}
-                completedItems={completedItems}
-            />
+
+            {
+                todoList.length > 0 && (
+                    <>
+                        <section className="main" role="main">
+                            <TodoList {...todoListProps}/>
+                        </section>
+                        <TodoListFooter
+                            itemLeft={todoList.length}
+                            onFilterChange={(filter: TodoListFilter) => handleFilterChange(filter)}
+                            selectedFilter={selectedFilter}
+                            onClear={() => handleClearCompleted()}
+                            completedItems={completedItems}
+                        />
+                    </>
+                )
+            }
         </section>
     );
 }

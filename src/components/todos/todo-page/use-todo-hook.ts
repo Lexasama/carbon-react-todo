@@ -6,14 +6,14 @@ const useTodoHook = () => {
 
     const ESC_KEY = "Escape";
     const ENTER_KEY = 'Enter';
-
-    const todos = [{
-        title: "test",
-        id: 0,
-        url: "",
-        completed: false,
-        order: 1
-    },
+    const todos: Todo[] = [
+        {
+            title: "test",
+            id: 0,
+            url: "",
+            completed: false,
+            order: 1
+        },
         {
             title: "test1",
             id: 1,
@@ -23,10 +23,8 @@ const useTodoHook = () => {
         }];
 
     const [todoList, setTodoList] = useState<Array<Todo>>(todos);
-
     const [selectedFilter, setFilter] = useState(TodoListFilter.ALL);
     const [editedTodo, setEdited] = useState<{ editing: boolean, id: number }>({editing: false, id: 0})
-
 
     const completedItems = todoList.filter((t) => t.completed).length
 
