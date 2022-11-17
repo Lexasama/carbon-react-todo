@@ -118,5 +118,17 @@ describe("useTodoHook should", () => {
         await waitFor(() => expect(result.current).toEqual(expect.objectContaining({selectedFilter: filter})))
     });
 
+    it('remove todo from the list', async () => {
 
+        const {result} = renderHook(() => useTodoHook());
+        await act(() => result.current.add("todo"));
+        await act(() => result.current.handleRemove(0));
+
+        await waitFor(() => {
+            expect(result.current).toEqual(expect.objectContaining({
+                todoList: [],
+                completedItems: 0
+            }));
+        })
+    })
 });

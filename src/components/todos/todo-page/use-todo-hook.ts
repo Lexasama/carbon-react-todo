@@ -124,5 +124,4 @@ const useTodoHook = () => {
     };
 
 }
-
 export default useTodoHook;
