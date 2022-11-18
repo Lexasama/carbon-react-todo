@@ -18,19 +18,19 @@ function TodoListFooter(props: TodoListFooterProps) {
                 <li>
                     <NavLink
                         className={({isActive}) => isActive ? "selected" : ""}
-                        to={"#/"}
+                        to={"/"}
                     >All</NavLink>
                 </li>
                 <li>
                     <NavLink
                         className={({isActive}) => isActive ? "selected" : ""}
-                        to={"#/active"}
+                        to={"/active"}
                     >Active</NavLink>
                 </li>
                 <li>
                     <NavLink
                         className={({isActive}) => isActive ? "selected" : ""}
-                        to={"#/completed"}
+                        to={"/completed"}
                     >Completed</NavLink>
                 </li>
             </ul>

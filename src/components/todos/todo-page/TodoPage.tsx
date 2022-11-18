@@ -1,6 +1,5 @@
 import TodoListHeader from "../todo-list-header/TodoListHeader";
 import TodoListFooter from "../todo-list-footer/TodoListFooter";
-import {TodoListFilter} from "../TodoListFilter";
 import useTodoHook from "./use-todo-hook";
 import TodoList from "../todo-list/TodoList";
 import TodoListProps from "../todo-list/TodoListProps";
@@ -16,12 +15,10 @@ function TodoPage() {
         editedTodo,
         completed,
         handleRemove,
-        handleFilterChange,
         toggleEditMode,
         handleEdit,
         todoList,
-        selectedFilter,
-        clearCompleted
+        clearCompleted,
     } = useTodoHook();
 
     const todoListProps: TodoListProps = {
@@ -33,10 +30,10 @@ function TodoPage() {
         toggleCompleted: completed,
         toggleEditMode
     }
-
     const activeItems = todoList.length - completedItems;
+
     return (
-        <section className="todoApp">
+        <section className="todoapp">
             <header className="header">
                 <h1>todos</h1>
                 <TodoListHeader onAdd={(e) => add(e)}
@@ -52,8 +49,6 @@ function TodoPage() {
                         </section>
                         <TodoListFooter
                             activeItems={activeItems}
-                            onFilterChange={(filter: TodoListFilter) => handleFilterChange(filter)}
-                            selectedFilter={selectedFilter}
                             onClear={() => clearCompleted()}
                             completedItems={completedItems}
                         />
