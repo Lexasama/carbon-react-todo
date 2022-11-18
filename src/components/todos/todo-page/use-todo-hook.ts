@@ -1,7 +1,6 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Todo from "../Todo";
 import {TodoListFilter} from "../TodoListFilter";
-import {useLocation} from "react-router-dom";
 
 const useTodoHook = () => {
 
@@ -11,19 +10,6 @@ const useTodoHook = () => {
     const [editedTodo, setEdited] = useState<{ editing: boolean, id: number }>({editing: false, id: 0});
 
     const completedItems = todoList.filter((t) => t.completed).length;
-
-    const {pathname} = useLocation();
-
-    useEffect(() => {
-            if (!pathname.substring(1).trim()) {
-                setFilter(TodoListFilter.ALL);
-                return;
-            }
-            const filter = pathname.substring(1).trim() === "completed" ? TodoListFilter.COMPLETED : TodoListFilter.ACTIVE;
-            setFilter(filter);
-        }, [selectedFilter, pathname]
-    );
-
 
     const completeAll = () => {
         const newList = todoList.map((t) => {
@@ -87,8 +73,7 @@ const useTodoHook = () => {
         setTodoList(todoList.filter((todo) => !todo.completed));
     }
 
-    function handleFilterChange(filter: any) {
-        console.log(filter)
+    function handleFilterChange(filter: TodoListFilter) {
         setFilter(filter);
         exitEditMode()
     }
@@ -132,6 +117,7 @@ const useTodoHook = () => {
         handleEdit,
         handleFilterChange,
         handleRemove,
+        selectedFilter,
         todoList,
         toggleEditMode,
         completed,

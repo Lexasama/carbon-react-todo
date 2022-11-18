@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import {BrowserRouter} from "react-router-dom";
 
 const onClear = jest.fn();
+const onFilterChange = jest.fn();
 
 describe("TodoListFooter should", () => {
 
@@ -18,8 +19,8 @@ describe("TodoListFooter should", () => {
 
         render(
             <BrowserRouter>
-                <TodoListFooter completedItems={0} activeItems={count}
-                                onClear={onClear}/>
+                <TodoListFooter completedItems={0} activeItems={count} selectedFilter={"ALL"}
+                                onFilterChange={onFilterChange} onClear={onClear}/>
             </BrowserRouter>);
 
         expect(screen.getByText(activeItems)).toBeInTheDocument();
@@ -30,7 +31,8 @@ describe("TodoListFooter should", () => {
 
         render(
             <BrowserRouter>
-                <TodoListFooter completedItems={0} activeItems={0}
+                <TodoListFooter completedItems={0} activeItems={0} selectedFilter={"ALL"}
+                                onFilterChange={onFilterChange}
                                 onClear={onClear}/>
             </BrowserRouter>);
 
@@ -43,7 +45,8 @@ describe("TodoListFooter should", () => {
 
         render(
             <BrowserRouter>
-                <TodoListFooter completedItems={1} activeItems={0}
+                <TodoListFooter completedItems={1} activeItems={0} selectedFilter={"ALL"}
+                                onFilterChange={onFilterChange}
                                 onClear={onClear}/>
             </BrowserRouter>);
 
@@ -57,7 +60,8 @@ describe("TodoListFooter should", () => {
 
         render(
             <BrowserRouter>
-                <TodoListFooter completedItems={0} activeItems={0}
+                <TodoListFooter completedItems={0} activeItems={0} selectedFilter={"ALL"}
+                                onFilterChange={onFilterChange}
                                 onClear={onClear}/>
             </BrowserRouter>);
 
@@ -69,7 +73,7 @@ describe("TodoListFooter should", () => {
     it("call onClear when button is clicked", async () => {
 
         render(<BrowserRouter>
-            <TodoListFooter completedItems={1} activeItems={0}
+            <TodoListFooter completedItems={1} activeItems={0} selectedFilter={"ALL"} onFilterChange={onFilterChange}
                             onClear={onClear}/>
         </BrowserRouter>);
 
