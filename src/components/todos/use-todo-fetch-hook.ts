@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import Todo from "./Todo";
 import {TodoListFilter} from "./TodoListFilter";
-import {create, getAll, update} from "../../api/todo-api";
+import {create, deleteOne, getAll, update} from "../../api/todo-api";
 
 const useTodoFetchHook = (filter: string = "ALL") => {
 
@@ -80,8 +80,13 @@ const useTodoFetchHook = (filter: string = "ALL") => {
         }
     }
 
-    function handleRemove(id: number) {
-        setTodoList(todoList.filter((todo) => todo.id !== id));
+    async function handleRemove(id: number) {
+        try {
+            await deleteOne(id);
+            await getList();
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     function clearCompleted() {
