@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import Todo from "./Todo";
 import {TodoListFilter} from "./TodoListFilter";
-import {create, deleteOne, getAll, update} from "../../api/todo-api";
+import {create, deleteCompleted, deleteOne, getAll, update} from "../../api/todo-api";
 
 const useTodoFetchHook = (filter: string = "ALL") => {
 
@@ -89,8 +89,13 @@ const useTodoFetchHook = (filter: string = "ALL") => {
         }
     }
 
-    function clearCompleted() {
-        setTodoList(todoList.filter((todo) => !todo.completed));
+    async function clearCompleted() {
+        try {
+            await deleteCompleted();
+            await getList();
+        } catch (e) {
+            console.error(e)
+        }
     }
 
     function handleFilterChange(filter: TodoListFilter) {

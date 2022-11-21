@@ -19,3 +19,7 @@ export async function update(id: number, todo: TodoUpdate) {
 export async function deleteOne(id: number) {
     return deleteAsync(`${endpoint}/${id}`);
 }
+
+export async function deleteCompleted() {
+    return deleteAsync(`${endpoint}?completed=${true}`);
+}
