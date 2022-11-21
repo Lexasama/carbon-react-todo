@@ -2,8 +2,7 @@ import TodoListHeader from "../todo-list-header/TodoListHeader";
 import TodoListFooter from "../todo-list-footer/TodoListFooter";
 import {TodoListFilter} from "../TodoListFilter";
 import TodoList from "../todo-list/TodoList";
-import useTodoHook from "./use-todo-hook";
-
+import useTodoFetchHook from "../use-todo-fetch-hook";
 
 export interface TodoPageProps {
     filter: string
@@ -23,7 +22,7 @@ function TodoPage({filter}: TodoPageProps) {
         todoList,
         selectedFilter,
         clearCompleted
-    } = useTodoHook(filter);
+    } = useTodoFetchHook(filter);
 
     const activeItems = todoList.length - completedItems;
     return (

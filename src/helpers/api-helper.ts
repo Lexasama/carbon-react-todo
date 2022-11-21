@@ -15,10 +15,14 @@ async function toJSON(resp: any) {
     if (result) return JSON.parse(result);
 }
 
-async function send(url: string, method: string, data?: any, contentType?: any, isRetrying?: boolean): Promise<object> {
+async function send(url: string, method: string, data?: any, contentType?: string, isRetrying?: boolean): Promise<object> {
     let options: any = {
         method: method,
-        mode: 'cors'
+        headers: {
+            "Content-Type": contentType
+        },
+        mode: 'cors',
+
     };
     if (data) options.body = JSON.stringify(data);
     if (contentType) options.headers['Content-Type'] = contentType;
@@ -46,10 +50,6 @@ export function putAsync(url: string, data: any) {
 
 export function getAsync(url: string): any {
     return send(url, 'GET');
-}
-
-export function getStringAsync(url: string) {
-    return send(url, 'GET', null, null, false);
 }
 
 export function deleteAsync(url: string) {

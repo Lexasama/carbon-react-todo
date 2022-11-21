@@ -1,13 +1,24 @@
 import {useEffect, useState} from "react";
 import Todo from "./Todo";
 import {TodoListFilter} from "./TodoListFilter";
-import {getAll} from "../../api/todo-api";
+import {create, getAll, update} from "../../api/todo-api";
 
-const useTodoFetchHook = () => {
+const useTodoFetchHook = (filter: string = "ALL") => {
 
     useEffect(() => {
-        getAll().then(data => setTodoList(data));
+        try {
+            getList();
+        } catch (e) {
+            console.error(e);
+        }
     }, []);
+
+
+    async function getList() {
+        const list = await getAll();
+        setTodoList(list);
+
+    }
 
     const [todoList, setTodoList] = useState<Todo[]>([]);
 
@@ -36,36 +47,37 @@ const useTodoFetchHook = () => {
             return t;
         });
         setTodoList(newList);
-    };
+    }
 
-    function add(title: string) {
-        if (title.trim().length > 0) {
-            //     let newId = 0;
-            //     if (todoList.length > 0) {
-            //         newId = todoList.sort((a, b) => a.id > b.id ? -1 : 1)[0].id + 1;
-            //     }
-            //     setTodoList(todoList.concat({
-            //         title: title,
-            //         id: newId,
-            //         url: "",
-            //         completed: false,
-            //         order: newId + 1
-            //     }));
+    async function add(title: string) {
+        title = title.trim();
+        console.log(title)
+        if (title.length > 0) {
+
+            try {
+                await create(title);
+                await getList();
+            } catch (e) {
+                console.error(e)
+            }
         }
     }
 
-    function completeOne(id: number) {
-        console.log("completeOne", id);
-        const newList = todoList.map((todo) => {
-            if (todo.id === id) {
-                return {
-                    ...todo,
-                    completeOne: !todo.completed
-                };
+    async function completeOne(id: number) {
+        const updatedTodo = todoList.find(t => t.id === id);
+
+        if (updatedTodo) {
+            try {
+                await update(id, {
+                    completed: !updatedTodo.completed,
+                    title: updatedTodo.title,
+                    order: updatedTodo.order
+                });
+                await getList();
+            } catch (e) {
+                console.error(e);
             }
-            return todo;
-        });
-        setTodoList(newList);
+        }
     }
 
     function handleRemove(id: number) {
@@ -80,13 +92,16 @@ const useTodoFetchHook = () => {
         setFilter(filter);
     }
 
-    function getFilteredList(): Array<Todo> {
-
-        if (selectedFilter === TodoListFilter.ALL) {
-            return orderByOrder(todoList);
+    const filteredList = orderByOrder(todoList.filter((todo) => {
+        switch (filter) {
+            case 'ACTIVE':
+                return !todo.completed;
+            case "COMPLETED":
+                return todo.completed;
+            default:
+                return todo;
         }
-        return orderByOrder(todoList.filter((todo) => todo.completed === (selectedFilter === TodoListFilter.COMPLETED)));
-    }
+    }));
 
     function orderByOrder(list: Array<Todo>): Array<Todo> {
         return list.sort((a, b) => a.order > b.order ? -1 : 1);
@@ -96,7 +111,7 @@ const useTodoFetchHook = () => {
         add,
         completeAll,
         completedItems,
-        getFilteredList,
+        filteredList,
         clearCompleted,
         handleEdit,
         handleFilterChange,
