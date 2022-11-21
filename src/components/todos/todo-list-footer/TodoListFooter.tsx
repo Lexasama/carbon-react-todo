@@ -18,7 +18,7 @@ function TodoListFooter(props: TodoListFooterProps) {
                 <li>
                     <NavLink
                         className={({isActive}) => isActive ? "selected" : ""}
-                        to={"/"}
+                        to={"/all"}
                     >All</NavLink>
                 </li>
                 <li>
