@@ -15,15 +15,15 @@ const todo: Todo = {
 const onToggle = jest.fn();
 const onRemove = jest.fn();
 const onEdit = jest.fn();
-const onEnterEdit = jest.fn();
+const onEditMode = jest.fn();
 
 const props: TodoListItemProps = {
     todo: todo,
     isEdited: false,
-    onEnterEdit: onEnterEdit,
     onEdit: onEdit,
     onRemove: onRemove,
-    onToggle: onToggle
+    onToggle: onToggle,
+    onEditMode: onEditMode
 }
 
 describe("TodoItem should", () => {
@@ -68,9 +68,9 @@ describe("TodoItem should", () => {
         render(<TodoItem
             todo={todo}
             onToggle={onToggle}
-            onRemove={onRemove} onEnterEdit={onEdit}
+            onRemove={onRemove}
             isEdited={true}
-            onEdit={onEdit}/>)
+            onEdit={onEdit} onEditMode={onEditMode}/>)
 
         expect(screen.getByTestId("todo-edit")).toBeInTheDocument();
     });
@@ -79,9 +79,10 @@ describe("TodoItem should", () => {
         render(<TodoItem
             todo={todo}
             onToggle={onToggle}
-            onRemove={onRemove} onEnterEdit={onEdit}
+            onRemove={onRemove}
             isEdited={true}
-            onEdit={onEdit}/>);
+            onEdit={onEdit}
+            onEditMode={onEditMode}/>);
 
         const newTitle = "newTitle";
         const editInput = screen.getByTestId('todo-edit');

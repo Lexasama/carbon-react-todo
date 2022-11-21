@@ -6,18 +6,18 @@ function TodoItem(props: TodoListItemProps) {
     const todo = props.todo;
 
     const onBlur = () => {
-        props.onEnterEdit();
+        props.onEditMode();
     }
 
     function onKeyUp(e: KeyboardEvent<HTMLInputElement>) {
 
         if (e.key === "Escape") {
-            props.onEnterEdit();
+            props.onEditMode();
         }
 
         if (e.key === "Enter") {
-            const newTodo = {...todo, title: e.currentTarget.value}
-            props.onEdit(newTodo);
+            props.onEdit({...todo, title: e.currentTarget.value});
+            props.onEditMode();
         }
     }
 
@@ -25,14 +25,14 @@ function TodoItem(props: TodoListItemProps) {
         <>
             <div className="view">
                 <input type="checkbox" checked={todo.completed}
-                       onChange={() => props.onToggle(props.todo.id)}
-                       className="toggle" id={`todo-${props.todo.id}`}
+                       onChange={() => props.onToggle(todo.id)}
+                       className="toggle" id={`todo-${todo.id}`}
                        data-testid="todo-toggle"
                 />
-                <label onDoubleClick={() => props.onEnterEdit(todo.id)}>
-                    {props.todo.title}
+                <label onDoubleClick={() => props.onEditMode(todo.id)}>
+                    {todo.title}
                 </label>
-                <button className="destroy" onClick={() => props.onRemove(props.todo.id)}></button>
+                <button className="destroy" onClick={() => props.onRemove(todo.id)}></button>
             </div>
             {
                 props.isEdited && (<input type="text"

@@ -32,7 +32,6 @@ function TodoListHeader(props: TodoListHeaderProps) {
             <input type="text"
                    className="new-todo" placeholder="What needs to be done?"
                    onKeyDown={handleAdd}
-                   onFocus={() => props.onFocus()}
                    autoFocus/>
         </>
     );

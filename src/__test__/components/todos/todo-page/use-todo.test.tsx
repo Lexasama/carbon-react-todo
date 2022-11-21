@@ -63,7 +63,7 @@ describe("useTodoHook should", () => {
         await act(() => result.current.add("todo"));
         await act(() => result.current.add("todo1"));
 
-        await act(() => result.current.completed(1));
+        await act(() => result.current.completeOne(1));
 
         await waitFor(() => {
             expect(result.current).toEqual(expect.objectContaining({

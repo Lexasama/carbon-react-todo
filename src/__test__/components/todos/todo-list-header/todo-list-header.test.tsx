@@ -6,7 +6,6 @@ import userEvent from "@testing-library/user-event";
 
 const props: TodoListHeaderProps = {
     onAdd: jest.fn(),
-    onFocus: jest.fn(),
 }
 
 describe("TodoListHeader should", () => {
@@ -18,15 +17,6 @@ describe("TodoListHeader should", () => {
 
         expect(screen.getByRole('textbox')).toBeInTheDocument();
         expect(screen.getByPlaceholderText('What needs to be done?')).toBeInTheDocument()
-    });
-
-    it('call onFocus method when focussed', async function () {
-
-        render(<TodoListHeader  {...props}/>);
-        const inputEl = screen.getByRole('textbox');
-        userEvent.click(inputEl);
-
-        expect(props.onFocus).toBeCalledTimes(1);
     });
 
     it('call add key is down', async function () {

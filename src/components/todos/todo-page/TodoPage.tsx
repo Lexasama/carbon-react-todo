@@ -1,54 +1,49 @@
 import TodoListHeader from "../todo-list-header/TodoListHeader";
 import TodoListFooter from "../todo-list-footer/TodoListFooter";
 import {TodoListFilter} from "../TodoListFilter";
-import useTodoHook from "./use-todo-hook";
 import TodoList from "../todo-list/TodoList";
-import TodoListProps from "../todo-list/TodoListProps";
+import useTodoHook from "./use-todo-hook";
 
-function TodoPage() {
+
+export interface TodoPageProps {
+    filter: string
+}
+
+function TodoPage({filter}: TodoPageProps) {
 
     const {
         completeAll,
         completedItems,
         add,
-        exitEditMode,
-        getFilteredList,
-        editedTodo,
-        completed,
+        filteredList,
+        completeOne,
         handleRemove,
         handleFilterChange,
-        toggleEditMode,
         handleEdit,
         todoList,
         selectedFilter,
         clearCompleted
-    } = useTodoHook();
-
-    const todoListProps: TodoListProps = {
-        completeAll,
-        editedTodo,
-        filteredList: getFilteredList,
-        handleEdit,
-        handleRemove,
-        toggleCompleted: completed,
-        toggleEditMode
-    }
+    } = useTodoHook(filter);
 
     const activeItems = todoList.length - completedItems;
     return (
-        <section className="todoApp">
+        <section className="todoapp">
             <header className="header">
                 <h1>todos</h1>
                 <TodoListHeader onAdd={(e) => add(e)}
-                                onFocus={() => exitEditMode()}
                 />
             </header>
-
             {
                 todoList.length > 0 && (
                     <>
                         <section className="main" role="main">
-                            <TodoList {...todoListProps}/>
+                            <TodoList
+                                completeAll={completeAll}
+                                filteredList={filteredList}
+                                toggleCompleted={(id: number) => completeOne(id)}
+                                handleEdit={(todo) => handleEdit(todo)}
+                                handleRemove={(id) => handleRemove(id)}
+                            />
                         </section>
                         <TodoListFooter
                             activeItems={activeItems}

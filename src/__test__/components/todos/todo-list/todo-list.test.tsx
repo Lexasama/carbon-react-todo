@@ -2,8 +2,6 @@ import {render, screen} from "@testing-library/react";
 import TodoList from "../../../../components/todos/todo-list/TodoList";
 import userEvent from "@testing-library/user-event";
 
-const editedTodo = {editing: false, id: 0};
-const toggleEditMode = jest.fn();
 const toggleCompleted = jest.fn();
 const handleRemove = jest.fn();
 const handleEdit = jest.fn();
@@ -14,9 +12,8 @@ describe("TodoList should", () => {
 
     it("display given todos", async () => {
         render(<TodoList completeAll={completeAll}
-                         filteredList={() => [{id: 0, completed: false, title: 'title', url: "", order: 1}]}
-                         editedTodo={editedTodo} toggleCompleted={toggleCompleted} handleRemove={handleRemove}
-                         toggleEditMode={toggleEditMode}
+                         filteredList={[{id: 0, completed: false, title: 'title', url: "", order: 1}]}
+                         toggleCompleted={toggleCompleted} handleRemove={handleRemove}
                          handleEdit={handleEdit}/>);
 
         expect(screen.getByText('title')).toBeInTheDocument();
@@ -30,9 +27,8 @@ describe("TodoList should", () => {
             url: "",
             order: 2
         }];
-        render(<TodoList completeAll={completeAll} filteredList={() => todos}
-                         editedTodo={editedTodo} toggleCompleted={toggleCompleted} handleRemove={handleRemove}
-                         toggleEditMode={toggleEditMode}
+        render(<TodoList completeAll={completeAll} filteredList={todos}
+                         toggleCompleted={toggleCompleted} handleRemove={handleRemove}
                          handleEdit={handleEdit}/>);
 
         expect(screen.getByText(/mark all as complete/i)).toBeInTheDocument()
@@ -40,9 +36,8 @@ describe("TodoList should", () => {
 
     it("call toggle all checkbox", async () => {
 
-        render(<TodoList completeAll={completeAll} filteredList={() => []}
-                         editedTodo={editedTodo} toggleCompleted={toggleCompleted} handleRemove={handleRemove}
-                         toggleEditMode={toggleEditMode}
+        render(<TodoList completeAll={completeAll} filteredList={[]}
+                         toggleCompleted={toggleCompleted} handleRemove={handleRemove}
                          handleEdit={handleEdit}/>);
 
         expect(screen.getByText(/mark all as complete/i)).toBeInTheDocument();

@@ -10,8 +10,8 @@ describe("TodoListFooter should", () => {
 
     it.each`
     activeItems | expectedText
-    ${0} | ${'item left'}
-    ${1} | ${'items left'}
+    ${0} | ${'items left'}
+    ${1} | ${'item left'}
     ${10} | ${'items left'}`
     ("display '$activeItems $expectedText'", async ({activeItems, expectedText}) => {
 
