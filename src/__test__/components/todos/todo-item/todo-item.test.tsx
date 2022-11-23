@@ -1,6 +1,6 @@
 import {TodoListItemProps} from "../../../../components/todos/todo-item/TodoListItemProps";
 import {fireEvent, render, screen} from "@testing-library/react";
-import TodoItem from "../../../../components/todos/todo-item/TodoItem";
+import TodoItem from "../../../../components/todos/todo-item/todo-item";
 import Todo from "../../../../components/todos/Todo";
 import userEvent from "@testing-library/user-event";
 

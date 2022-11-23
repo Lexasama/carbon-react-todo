@@ -1,4 +1,4 @@
-import useTodoHook from "../../../../components/todos/todo-page/use-todo-hook";
+import useTodoHook from "../../../../components/todos/todo-hooks/use-todo.hook";
 import {act, renderHook, waitFor} from "@testing-library/react";
 import {TodoListFilter} from "../../../../components/todos/TodoListFilter";
 

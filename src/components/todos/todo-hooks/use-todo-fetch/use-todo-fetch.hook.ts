@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import Todo from "./Todo";
-import {TodoListFilter} from "./TodoListFilter";
-import {create, deleteCompleted, deleteOne, getAll, update, updateCompleteAll} from "../../api/todo-api";
+import Todo from "../../Todo";
+import {TodoListFilter} from "../../TodoListFilter";
+import useTodoHttpHook from "../use-todo-http.hook";
 
 const useTodoFetchHook = (filter: string = "ALL") => {
 
@@ -13,10 +13,18 @@ const useTodoFetchHook = (filter: string = "ALL") => {
         }
     }, []);
 
+    const {
+        deleteCompleted,
+        deleteOne,
+        getAll, create,
+        update,
+        updateCompleteAll,
+
+    } = useTodoHttpHook();
+
     async function getList() {
         const list = await getAll();
         setTodoList(list);
-
     }
 
     const [todoList, setTodoList] = useState<Todo[]>([]);
@@ -49,9 +57,7 @@ const useTodoFetchHook = (filter: string = "ALL") => {
 
     async function add(title: string) {
         title = title.trim();
-        console.log(title)
         if (title.length > 0) {
-
             try {
                 await create(title);
                 await getList();
@@ -128,6 +134,5 @@ const useTodoFetchHook = (filter: string = "ALL") => {
         todoList,
         completeOne,
     };
-
 }
 export default useTodoFetchHook;

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import TodoPage from "../todos/todo-page/TodoPage";
+import TodoPage from "../todos/todo-page/todo-page";
 import TheFooter from "../general/the-footer";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 

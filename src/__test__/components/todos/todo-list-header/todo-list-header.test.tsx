@@ -1,4 +1,4 @@
-import TodoListHeader from "../../../../components/todos/todo-list-header/TodoListHeader";
+import TodoListHeader from "../../../../components/todos/todo-list-header/todo-list-header";
 import TodoListHeaderProps from "../../../../components/todos/todo-list-header/TodoListHeaderProps";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";

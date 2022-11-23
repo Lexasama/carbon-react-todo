@@ -1,4 +1,4 @@
-import TodoListFooter from "../../../../components/todos/todo-list-footer/TodoListFooter";
+import TodoListFooter from "../../../../components/todos/todo-list-footer/todo-list-footer";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {BrowserRouter} from "react-router-dom";

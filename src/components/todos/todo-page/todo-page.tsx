@@ -1,8 +1,8 @@
-import TodoListHeader from "../todo-list-header/TodoListHeader";
-import TodoListFooter from "../todo-list-footer/TodoListFooter";
+import TodoListHeader from "../todo-list-header/todo-list-header";
+import TodoListFooter from "../todo-list-footer/todo-list-footer";
 import {TodoListFilter} from "../TodoListFilter";
-import TodoList from "../todo-list/TodoList";
-import useTodoFetchHook from "../use-todo-fetch-hook";
+import TodoList from "../todo-list/todo-list";
+import useTodoFetchHook from "../todo-hooks/use-todo-fetch/use-todo-fetch.hook";
 
 export interface TodoPageProps {
     filter: string

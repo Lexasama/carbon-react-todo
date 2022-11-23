@@ -10,12 +10,12 @@ async function checkErrors(resp: any) {
     throw error;
 }
 
-async function toJSON(resp: any) {
+export async function toJSON(resp: any) {
     const result = await resp.text();
     if (result) return JSON.parse(result);
 }
 
-async function send(url: string, method: string, data?: any, contentType?: string, isRetrying?: boolean): Promise<object> {
+async function send(url: string, method: string, data?: any, contentType?: string): Promise<Response> {
     let options: any = {
         method: method,
         headers: {
@@ -29,15 +29,9 @@ async function send(url: string, method: string, data?: any, contentType?: strin
 
     let result = await fetch(url, options);
 
-    if (result.status === 401 && !isRetrying) {
-        send(url, method, data, contentType, true);
-    }
-
     await checkErrors(result);
 
-    return await toJSON(result);
-
-
+    return result;
 }
 
 export function postAsync(url: string, data: any) {
@@ -45,10 +39,10 @@ export function postAsync(url: string, data: any) {
 }
 
 export function putAsync(url: string, data: any) {
-    return send(url, 'PUT', data, 'application/json');
+    return send(url, "PUT", data);
 }
 
-export function getAsync(url: string): any {
+export function getAsync(url: string) {
     return send(url, 'GET');
 }
 

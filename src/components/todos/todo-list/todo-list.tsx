@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import TodoItem from "../todo-item/TodoItem";
+import TodoItem from "../todo-item/todo-item";
 import TodoListProps from "./TodoListProps";
 import {useState} from "react";
 

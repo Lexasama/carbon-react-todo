@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import TodoList from "../../../../components/todos/todo-list/TodoList";
+import TodoList from "../../../../components/todos/todo-list/todo-list";
 import userEvent from "@testing-library/user-event";
 
 const toggleCompleted = jest.fn();
