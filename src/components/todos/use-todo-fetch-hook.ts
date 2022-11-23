@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import Todo from "./Todo";
 import {TodoListFilter} from "./TodoListFilter";
-import {create, deleteCompleted, deleteOne, getAll, update} from "../../api/todo-api";
+import {create, deleteCompleted, deleteOne, getAll, update, updateCompleteAll} from "../../api/todo-api";
 
 const useTodoFetchHook = (filter: string = "ALL") => {
 
@@ -12,7 +12,6 @@ const useTodoFetchHook = (filter: string = "ALL") => {
             console.error(e);
         }
     }, []);
-
 
     async function getList() {
         const list = await getAll();
@@ -26,14 +25,13 @@ const useTodoFetchHook = (filter: string = "ALL") => {
 
     const completedItems = todoList.filter((t) => t.completed).length;
 
-    const completeAll = () => {
-        const newList = todoList.map((t) => {
-            if (!t.completed) {
-                return {...t, completeOne: true}
-            }
-            return t;
-        });
-        setTodoList(newList);
+    async function completeAll() {
+        try {
+            await updateCompleteAll();
+            await getList();
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     const handleEdit = (todo: Todo) => {

@@ -14,7 +14,6 @@ function TodoListFooter(props: TodoListFooterProps) {
         <footer className="footer">
             <span className="todo-count">{activeItemsCount(props.activeItems)}</span>
             <ul className="filters">
-
                 <li>
                     <NavLink
                         className={({isActive}) => isActive ? "selected" : ""}

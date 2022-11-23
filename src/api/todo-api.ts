@@ -23,3 +23,7 @@ export async function deleteOne(id: number) {
 export async function deleteCompleted() {
     return deleteAsync(`${endpoint}?completed=${true}`);
 }
+
+export async function updateCompleteAll() {
+    return putAsync(`${endpoint}/complete-all`, {});
+}
