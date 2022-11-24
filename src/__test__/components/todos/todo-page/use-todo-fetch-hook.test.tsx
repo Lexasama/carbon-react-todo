@@ -52,7 +52,7 @@ const deleteOne = () => {
 }
 
 function deleteCompleted() {
-    return rest.delete(`${TODOS_URL}?completed=true`, (req, res, ctx) => {
+    return rest.delete(`${TODOS_URL}`, (req, res, ctx) => {
         return res(ctx.status(STATUS_CODE_NO_CONTENT))
     });
 }
