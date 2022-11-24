@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import Todo from "../../Todo";
 import useTodoHttpHook from "../use-todo-http.hook";
-import {orderByOrder} from "../todo-common";
+import {filterList, orderByOrder} from "../todo-common";
+import {TodoListFilter} from "../../TodoListFilter";
 
-const useTodoFetchHook = (filter: string = "ALL") => {
+const useTodoFetchHook = (filter: TodoListFilter = TodoListFilter.ALL) => {
 
     useEffect(() => {
         try {
@@ -14,10 +15,10 @@ const useTodoFetchHook = (filter: string = "ALL") => {
     }, []);
 
     const {
+        create,
         deleteCompleted,
         deleteOne,
         getAll,
-        create,
         update,
         updateCompleteAll,
     } = useTodoHttpHook();
@@ -28,7 +29,8 @@ const useTodoFetchHook = (filter: string = "ALL") => {
     }
 
     const [todoList, setTodoList] = useState<Todo[]>([]);
-    const completedItems = todoList.filter((t) => t.completed).length;
+    const completedList = filterList(todoList, TodoListFilter.COMPLETED);
+    const completedItems = completedList.length;
 
     async function completeAll() {
         try {
@@ -99,27 +101,18 @@ const useTodoFetchHook = (filter: string = "ALL") => {
         }
     }
 
-    const filteredList = orderByOrder(todoList.filter((todo) => {
-        switch (filter) {
-            case 'ACTIVE':
-                return !todo.completed;
-            case "COMPLETED":
-                return todo.completed;
-            default:
-                return todo;
-        }
-    }));
+    const filteredList = orderByOrder(filterList(todoList, filter));
 
     return {
         add,
+        clearCompleted,
         completeAll,
         completedItems,
+        completeOne,
         filteredList,
-        clearCompleted,
         handleEdit,
         handleRemove,
-        todoList,
-        completeOne,
+        todoList
     };
 }
 export default useTodoFetchHook;

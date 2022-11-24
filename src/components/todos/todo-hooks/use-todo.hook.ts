@@ -1,12 +1,15 @@
 import {useState} from "react";
 import Todo from "../Todo";
 import {filterList, orderByOrder} from "./todo-common";
+import {TodoListFilter} from "../TodoListFilter";
 
-const useTodoHook = (filter: string = "ALL") => {
+const useTodoHook = (filter: TodoListFilter = TodoListFilter.ALL) => {
 
     const [todoList, setTodoList] = useState<Array<Todo>>([]);
 
-    const completedItems = todoList.filter((t) => t.completed).length;
+    const completedList = filterList(todoList, TodoListFilter.COMPLETED);
+
+    const completedItems = completedList.length;
 
     function add(title: string) {
 
@@ -36,7 +39,7 @@ const useTodoHook = (filter: string = "ALL") => {
     }
 
     function clearCompleted() {
-        setTodoList(todoList.filter((todo) => !todo.completed));
+        setTodoList(filterList(todoList, TodoListFilter.ACTIVE));
     }
 
     function completeOne(id: number) {
@@ -71,17 +74,16 @@ const useTodoHook = (filter: string = "ALL") => {
 
     const filteredList = orderByOrder(filterList(todoList, filter));
 
-
     return {
         add,
+        clearCompleted,
         completeAll,
         completedItems,
+        completeOne,
         filteredList,
-        clearCompleted,
         handleEdit,
         handleRemove,
         todoList,
-        completeOne,
     };
 
 }

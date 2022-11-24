@@ -1,25 +1,26 @@
 import TodoListHeader from "../todo-list-header/todo-list-header";
 import TodoListFooter from "../todo-list-footer/todo-list-footer";
 import TodoList from "../todo-list/todo-list";
-import useTodoFetchHook from "../todo-hooks/use-todo-fetch/use-todo-fetch.hook";
+import useTodoHook from "../todo-hooks/use-todo.hook";
+import {TodoListFilter} from "../TodoListFilter";
 
 export interface TodoPageProps {
-    filter: string
+    filter: TodoListFilter
 }
 
 function TodoPage({filter}: TodoPageProps) {
 
     const {
+        add,
+        clearCompleted,
         completeAll,
         completedItems,
-        add,
-        filteredList,
         completeOne,
-        handleRemove,
+        filteredList,
         handleEdit,
-        todoList,
-        clearCompleted
-    } = useTodoFetchHook(filter);
+        handleRemove,
+        todoList
+    } = useTodoHook(filter);
 
     const activeItems = todoList.length - completedItems;
     return (
