@@ -16,10 +16,10 @@ const useTodoFetchHook = (filter: string = "ALL") => {
     const {
         deleteCompleted,
         deleteOne,
-        getAll, create,
+        getAll,
+        create,
         update,
         updateCompleteAll,
-
     } = useTodoHttpHook();
 
     async function getList() {

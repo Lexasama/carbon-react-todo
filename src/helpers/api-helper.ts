@@ -1,15 +1,3 @@
-async function checkErrors(resp: any) {
-    if (resp.ok) return resp;
-
-    let errorMsg = `ERROR ${resp.status} (${resp.statusText})`;
-    let serverText = await resp.text();
-    if (serverText) errorMsg = `${errorMsg}: ${serverText}`;
-
-    const error = new Error(errorMsg);
-    error.message = resp;
-    throw error;
-}
-
 export async function toJSON(resp: Response) {
     const result = await resp.text();
     if (result) return JSON.parse(result);
@@ -26,11 +14,7 @@ async function send(url: string, method: string, data?: any, contentType?: strin
     if (data) options.body = JSON.stringify(data);
     if (contentType) options.headers['Content-Type'] = contentType;
 
-    let result = await fetch(url, options);
-
-    await checkErrors(result);
-
-    return result;
+  return await fetch(url, options);
 }
 
 export function postAsync(url: string, data: any) {

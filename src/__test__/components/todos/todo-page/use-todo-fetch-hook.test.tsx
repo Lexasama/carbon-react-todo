@@ -4,8 +4,10 @@ import {setupServer} from "msw/node";
 import {renderHook, waitFor} from "@testing-library/react";
 import useTodoHttpHook from "../../../../components/todos/todo-hooks/use-todo-http.hook";
 
-const STATUS_CODE_NO_CONTENT = 204;
 const STATUS_CODE_OK = 200;
+const STATUS_CODE_NO_CONTENT = 204;
+const STATUS_CODE_NOT_FOUND = 404;
+const STATUS_CODE_CONFLICT = 409;
 
 const defaultTodos: Todo[] = [
     {id: 1, title: "todo", completed: true, order: 1, url: "/todos/1"},
@@ -120,4 +122,56 @@ describe("use-todo-http hook should", () => {
             expect(response.status).toBe(STATUS_CODE_OK);
         });
     })
+
+
+});
+
+
+describe("use-todo-http should fail", () => {
+
+
+    it("with code 204 when delete non existing todo", async () => {
+
+        const error_deleteOne = () => {
+            return rest.delete(`${TODOS_URL}/:id`, (req, res, ctx) => {
+                return res(ctx.status(STATUS_CODE_NOT_FOUND));
+            })
+
+        }
+
+        server.resetHandlers(...[error_deleteOne()]);
+        const {result} = renderHook(() => useTodoHttpHook());
+
+        const response = await result.current.deleteOne(1);
+        await waitFor(() => {
+            expect(response.status).toBe(STATUS_CODE_NOT_FOUND);
+        });
+    });
+
+    test('with code not found when updating a non existing todo', async () => {
+
+        server.resetHandlers(rest.put(`${TODOS_URL}/:id`, (req, res, ctx) => {
+            return res(ctx.status(STATUS_CODE_NOT_FOUND));
+        }));
+        const {result} = renderHook(() => useTodoHttpHook());
+
+        const response = await result.current.update(1, {completed: true, order: 1, title: "title"})
+        await waitFor(() => {
+            expect(response.status).toBe(STATUS_CODE_NOT_FOUND);
+        });
+    });
+
+    test('with code conflict when updating a todo with existing order', async () => {
+
+        server.resetHandlers(rest.put(`${TODOS_URL}/:id`, (req, res, ctx) => {
+            return res(ctx.status(STATUS_CODE_CONFLICT));
+        }));
+        const {result} = renderHook(() => useTodoHttpHook());
+
+        const response = await result.current.update(1, {completed: true, order: 1, title: "title"})
+        await waitFor(() => {
+            expect(response.status).toBe(STATUS_CODE_CONFLICT);
+        });
+    });
+
 });
