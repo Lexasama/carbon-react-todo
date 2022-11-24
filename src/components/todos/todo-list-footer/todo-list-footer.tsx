@@ -42,5 +42,4 @@ function TodoListFooter(props: TodoListFooterProps) {
         </footer>);
 }
 
-
 export default TodoListFooter;

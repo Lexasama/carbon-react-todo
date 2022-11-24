@@ -10,7 +10,7 @@ async function checkErrors(resp: any) {
     throw error;
 }
 
-export async function toJSON(resp: any) {
+export async function toJSON(resp: Response) {
     const result = await resp.text();
     if (result) return JSON.parse(result);
 }
@@ -22,7 +22,6 @@ async function send(url: string, method: string, data?: any, contentType?: strin
             "Content-Type": contentType
         },
         mode: 'cors',
-
     };
     if (data) options.body = JSON.stringify(data);
     if (contentType) options.headers['Content-Type'] = contentType;
@@ -39,7 +38,7 @@ export function postAsync(url: string, data: any) {
 }
 
 export function putAsync(url: string, data: any) {
-    return send(url, "PUT", data);
+    return send(url, "PUT", data, 'application/json');
 }
 
 export function getAsync(url: string) {

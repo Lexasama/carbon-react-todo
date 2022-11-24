@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import Todo from "../../Todo";
-import {TodoListFilter} from "../../TodoListFilter";
 import useTodoHttpHook from "../use-todo-http.hook";
+import {orderByOrder} from "../todo-common";
 
 const useTodoFetchHook = (filter: string = "ALL") => {
 
@@ -28,9 +28,6 @@ const useTodoFetchHook = (filter: string = "ALL") => {
     }
 
     const [todoList, setTodoList] = useState<Todo[]>([]);
-
-    const [selectedFilter, setFilter] = useState(TodoListFilter.ALL);
-
     const completedItems = todoList.filter((t) => t.completed).length;
 
     async function completeAll() {
@@ -102,10 +99,6 @@ const useTodoFetchHook = (filter: string = "ALL") => {
         }
     }
 
-    function handleFilterChange(filter: TodoListFilter) {
-        setFilter(filter);
-    }
-
     const filteredList = orderByOrder(todoList.filter((todo) => {
         switch (filter) {
             case 'ACTIVE':
@@ -117,10 +110,6 @@ const useTodoFetchHook = (filter: string = "ALL") => {
         }
     }));
 
-    function orderByOrder(list: Array<Todo>): Array<Todo> {
-        return list.sort((a, b) => a.order > b.order ? -1 : 1);
-    }
-
     return {
         add,
         completeAll,
@@ -128,9 +117,7 @@ const useTodoFetchHook = (filter: string = "ALL") => {
         filteredList,
         clearCompleted,
         handleEdit,
-        handleFilterChange,
         handleRemove,
-        selectedFilter,
         todoList,
         completeOne,
     };

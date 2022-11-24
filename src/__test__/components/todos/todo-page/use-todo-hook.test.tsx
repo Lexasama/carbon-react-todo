@@ -1,6 +1,5 @@
 import useTodoHook from "../../../../components/todos/todo-hooks/use-todo.hook";
 import {act, renderHook, waitFor} from "@testing-library/react";
-import {TodoListFilter} from "../../../../components/todos/TodoListFilter";
 
 describe("useTodoHook should", () => {
     const title = "title";
@@ -100,22 +99,6 @@ describe("useTodoHook should", () => {
 
             }));
         })
-    });
-
-    it.each`
-        filter | nameTest
-        ${TodoListFilter.ALL} | ${TodoListFilter.ALL}
-        ${TodoListFilter.ACTIVE} | ${TodoListFilter.ACTIVE}
-        ${TodoListFilter.COMPLETED} | ${TodoListFilter.COMPLETED}
-    `('change selected filter to $nameTest', async (filter) => {
-
-        const {result} = renderHook(() => useTodoHook());
-
-        await act(() => {
-            result.current.handleFilterChange(filter)
-        })
-
-        await waitFor(() => expect(result.current).toEqual(expect.objectContaining({selectedFilter: filter})))
     });
 
     it('remove todo from the list', async () => {

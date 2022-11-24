@@ -30,4 +30,22 @@ describe("TodoListHeader should", () => {
         expect(props.onAdd).toHaveBeenNthCalledWith(1, title);
     });
 
+    it('have an empty input when escape key is pressed', async () => {
+        const title = "title";
+        render(<TodoListHeader  {...props}/>);
+        const inputEl = screen.getByRole('textbox') as HTMLInputElement;
+        userEvent.type(inputEl, `${title}{escape}`)
+
+        expect(inputEl.value).toBe("");
+    });
+
+    it('not call add when escape key is pressed', async () => {
+        const title = "title";
+        render(<TodoListHeader  {...props}/>);
+        const inputEl = screen.getByRole('textbox');
+        userEvent.type(inputEl, `${title}{escape}`)
+
+        expect(props.onAdd).toBeCalledTimes(0);
+    })
+
 })
