@@ -1,12 +1,12 @@
 import {NavLink} from "react-router-dom";
 
 type TodoListFooterProps = {
-    completedItems: number
     activeItems: number,
+    completedItems: number
     onClear: () => void
 }
 
-function TodoListFooter(props: TodoListFooterProps) {
+function TodoListFooter({activeItems, completedItems, onClear}: TodoListFooterProps) {
 
     const activeItemsCount = (number: number) => {
         if (number === 1) {
@@ -17,7 +17,7 @@ function TodoListFooter(props: TodoListFooterProps) {
 
     return (
         <footer className="footer">
-            <span className="todo-count">{activeItemsCount(props.activeItems)}</span>
+            <span className="todo-count">{activeItemsCount(activeItems)}</span>
             <ul className="filters">
                 <li>
                     <NavLink
@@ -39,9 +39,9 @@ function TodoListFooter(props: TodoListFooterProps) {
                 </li>
             </ul>
             {
-                props.completedItems !== 0 &&
+                completedItems !== 0 &&
                 (
-                    <button className="clear-completed" onClick={() => props.onClear()}>Clear completed</button>
+                    <button className="clear-completed" onClick={() => onClear()}>Clear completed</button>
                 )
             }
         </footer>);

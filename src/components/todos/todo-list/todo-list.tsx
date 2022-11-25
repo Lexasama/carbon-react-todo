@@ -4,12 +4,12 @@ import {useState} from "react";
 import Todo from "../Todo";
 
 type TodoListProps = {
-    completeAll: () => void,
     activeItems: number,
-    todoList: Todo[],
+    completeAll: () => void,
     handleEdit: (todo: Todo) => void,
     handleRemove: (id: number) => void,
     toggleCompleted: (id: number) => void,
+    todoList: Todo[],
 }
 
 function TodoList(props: TodoListProps) {

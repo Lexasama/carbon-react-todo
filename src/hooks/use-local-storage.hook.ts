@@ -7,7 +7,6 @@ function getLocalStorageValue<T>(key: string, defaultValue: T): T {
         return (JSON.parse(saved) as T);
     }
     return defaultValue;
-
 }
 
 type SetValue<T> = Dispatch<SetStateAction<T>>

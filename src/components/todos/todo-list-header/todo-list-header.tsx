@@ -4,7 +4,7 @@ type TodoListHeaderProps = {
     onAdd: (title: string) => void
 }
 
-function TodoListHeader(props: TodoListHeaderProps) {
+function TodoListHeader({onAdd}: TodoListHeaderProps) {
 
     const ENTER_KEY = "Enter";
     const ESC_KEY = "Escape";
@@ -25,7 +25,7 @@ function TodoListHeader(props: TodoListHeaderProps) {
             if (input.length === 0) {
                 return;
             }
-            props.onAdd(title);
+            onAdd(title);
             resetInput();
         }
     }

@@ -7,8 +7,10 @@ describe("TodoListHeader should", () => {
 
     it("display input with placeholder", async () => {
 
-        render(<TodoListHeader onAdd={() => {
-        }}/>);
+        render(
+            <TodoListHeader onAdd={() => {
+            }}/>
+        );
 
         expect(screen.getByRole('textbox')).toBeInTheDocument();
         expect(screen.getByPlaceholderText('What needs to be done?')).toBeInTheDocument()
