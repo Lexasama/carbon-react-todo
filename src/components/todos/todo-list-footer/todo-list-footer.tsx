@@ -1,5 +1,10 @@
-import {TodoListFooterProps} from "./TodoListFooterProps";
 import {NavLink} from "react-router-dom";
+
+type TodoListFooterProps = {
+    completedItems: number
+    activeItems: number,
+    onClear: () => void
+}
 
 function TodoListFooter(props: TodoListFooterProps) {
 

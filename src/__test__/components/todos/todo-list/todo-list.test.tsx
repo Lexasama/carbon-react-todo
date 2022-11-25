@@ -2,21 +2,20 @@ import {render, screen} from "@testing-library/react";
 import TodoList from "../../../../components/todos/todo-list/todo-list";
 import userEvent from "@testing-library/user-event";
 
-const toggleCompleted = jest.fn();
-const handleRemove = jest.fn();
-const handleEdit = jest.fn();
-const completeAll = jest.fn();
-
 describe("TodoList should", () => {
-
-
     it("display given todos", async () => {
-        render(<TodoList completeAll={completeAll}
-                         filteredList={[{id: 0, completed: false, title: 'title', url: "", order: 1}]}
-                         toggleCompleted={toggleCompleted} handleRemove={handleRemove}
-                         handleEdit={handleEdit}/>);
+        render(<TodoList completeAll={() => {
+        }}
+                         todoList={[{id: 0, completed: false, title: 'title', url: "", order: 1}]}
+                         toggleCompleted={() => {
+                         }} handleRemove={() => {
+        }}
+                         handleEdit={() => {
+                         }}
+                         activeItems={0}/>);
 
-        expect(screen.getByText('title')).toBeInTheDocument();
+        expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(screen.getAllByRole('listitem')).toHaveLength(1);
     });
 
     it("display toggle all checkbox", async () => {
@@ -27,18 +26,31 @@ describe("TodoList should", () => {
             url: "",
             order: 2
         }];
-        render(<TodoList completeAll={completeAll} filteredList={todos}
-                         toggleCompleted={toggleCompleted} handleRemove={handleRemove}
-                         handleEdit={handleEdit}/>);
+        render(<TodoList completeAll={() => {
+        }} todoList={todos}
+                         toggleCompleted={() => {
+                         }} handleRemove={() => {
+        }}
+                         handleEdit={() => {
+                         }}
+                         activeItems={0}
+        />);
 
-        expect(screen.getByText(/mark all as complete/i)).toBeInTheDocument()
+        expect(screen.getByText(/mark all as complete/i)).toBeInTheDocument();
     });
 
     it("call toggle all checkbox", async () => {
 
-        render(<TodoList completeAll={completeAll} filteredList={[]}
-                         toggleCompleted={toggleCompleted} handleRemove={handleRemove}
-                         handleEdit={handleEdit}/>);
+        const completeAll = jest.fn()
+        render(<TodoList completeAll={completeAll} todoList={[]}
+                         toggleCompleted={() => {
+                         }}
+                         handleRemove={() => {
+                         }}
+                         handleEdit={() => {
+                         }}
+                         activeItems={0}
+        />);
 
         expect(screen.getByText(/mark all as complete/i)).toBeInTheDocument();
         const completeAllBtn = screen.getByRole("checkbox")

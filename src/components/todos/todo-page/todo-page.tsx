@@ -4,7 +4,7 @@ import TodoList from "../todo-list/todo-list";
 import useTodoHook from "../todo-hooks/use-todo.hook";
 import {TodoListFilter} from "../TodoListFilter";
 
-export interface TodoPageProps {
+export type TodoPageProps = {
     filter: TodoListFilter
 }
 
@@ -36,10 +36,11 @@ function TodoPage({filter}: TodoPageProps) {
                         <section className="main" role="main">
                             <TodoList
                                 completeAll={completeAll}
-                                filteredList={filteredList}
+                                todoList={filteredList}
                                 toggleCompleted={(id: number) => completeOne(id)}
                                 handleEdit={(todo) => handleEdit(todo)}
                                 handleRemove={(id) => handleRemove(id)}
+                                activeItems={activeItems}
                             />
                         </section>
                         <TodoListFooter

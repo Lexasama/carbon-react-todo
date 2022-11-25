@@ -2,10 +2,10 @@ import useTodoHook from "../../../../components/todos/todo-hooks/use-todo.hook";
 import {act, renderHook, waitFor} from "@testing-library/react";
 
 describe("useTodoHook should", () => {
-    const title = "title";
-    it(`add a todo when given ${title}`, async () => {
-        const {result} = renderHook(() => useTodoHook());
 
+    it(`add a todo with given title`, async () => {
+        const {result} = renderHook(() => useTodoHook());
+        const title = "title";
         await act(() => result.current.add(title));
 
         await waitFor(() => {

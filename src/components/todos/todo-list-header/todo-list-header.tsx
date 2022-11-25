@@ -1,7 +1,8 @@
 import {KeyboardEvent} from 'react'
 
-import TodoListHeaderProps from "./TodoListHeaderProps";
-
+type TodoListHeaderProps = {
+    onAdd: (title: string) => void
+}
 function TodoListHeader(props: TodoListHeaderProps) {
 
     const ENTER_KEY = "Enter";

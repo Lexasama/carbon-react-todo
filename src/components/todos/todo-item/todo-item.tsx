@@ -1,5 +1,14 @@
 import {KeyboardEvent} from "react";
-import {TodoListItemProps} from "./TodoListItemProps";
+import Todo from "../Todo";
+
+export type TodoListItemProps = {
+    isEdited: boolean
+    todo: Todo,
+    onToggle: (id: number) => void,
+    onRemove: (id: number) => void,
+    onEdit: (todo: Todo) => void
+    onEditMode: (id?: number) => void
+}
 
 function TodoItem(props: TodoListItemProps) {
 
@@ -32,7 +41,8 @@ function TodoItem(props: TodoListItemProps) {
                 <label onDoubleClick={() => props.onEditMode(todo.id)}>
                     {todo.title}
                 </label>
-                <button className="destroy" onClick={() => props.onRemove(todo.id)}></button>
+                <button className="destroy" name="destroy"
+                        onClick={() => props.onRemove(todo.id)}></button>
             </div>
             {
                 props.isEdited && (<input type="text"

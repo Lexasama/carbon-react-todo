@@ -1,8 +1,14 @@
 import {deleteAsync, getAsync, postAsync, putAsync, toJSON} from "../../../helpers/api-helper";
 import Todo from "../Todo";
-import {TodoUpdate} from "./use-todo-fetch/TodoUpdate";
+
 
 const endpoint: string = process.env.REACT_APP_BACKEND + "/todos";
+
+type TodoUpdate = {
+    title: string
+    completed: boolean
+    order: number
+}
 
 const useTodoHttpHook = () => {
 

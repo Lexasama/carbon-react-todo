@@ -3,8 +3,6 @@ import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {BrowserRouter} from "react-router-dom";
 
-const onClear = jest.fn();
-
 describe("TodoListFooter should", () => {
 
     it.each`
@@ -18,7 +16,8 @@ describe("TodoListFooter should", () => {
 
         render(
             <BrowserRouter>
-                <TodoListFooter completedItems={0} activeItems={count} onClear={onClear}/>
+                <TodoListFooter completedItems={0} activeItems={count} onClear={() => {
+                }}/>
             </BrowserRouter>);
 
         expect(screen.getByText(activeItems)).toBeInTheDocument();
@@ -30,7 +29,8 @@ describe("TodoListFooter should", () => {
         render(
             <BrowserRouter>
                 <TodoListFooter completedItems={0} activeItems={0}
-                                onClear={onClear}/>
+                                onClear={() => {
+                                }}/>
             </BrowserRouter>);
 
         expect(screen.getByRole('link', {name: /all/i})).toBeInTheDocument();
@@ -43,7 +43,8 @@ describe("TodoListFooter should", () => {
         render(
             <BrowserRouter>
                 <TodoListFooter completedItems={1} activeItems={0}
-                                onClear={onClear}/>
+                                onClear={() => {
+                                }}/>
             </BrowserRouter>);
 
         const btn = screen.getByRole('button', {
@@ -57,7 +58,8 @@ describe("TodoListFooter should", () => {
         render(
             <BrowserRouter>
                 <TodoListFooter completedItems={0} activeItems={0}
-                                onClear={onClear}/>
+                                onClear={() => {
+                                }}/>
             </BrowserRouter>);
 
         expect(screen.queryByRole('button', {
@@ -66,7 +68,7 @@ describe("TodoListFooter should", () => {
     });
 
     it("call onClear when button is clicked", async () => {
-
+        const onClear = jest.fn();
         render(<BrowserRouter>
             <TodoListFooter completedItems={1} activeItems={0}
                             onClear={onClear}/>

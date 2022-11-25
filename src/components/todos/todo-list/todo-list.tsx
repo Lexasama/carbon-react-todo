@@ -1,7 +1,16 @@
 import classNames from "classnames";
 import TodoItem from "../todo-item/todo-item";
-import TodoListProps from "./TodoListProps";
 import {useState} from "react";
+import Todo from "../Todo";
+
+type TodoListProps = {
+    completeAll: () => void,
+    activeItems: number,
+    todoList: Todo[],
+    handleEdit: (todo: Todo) => void,
+    handleRemove: (id: number) => void,
+    toggleCompleted: (id: number) => void,
+}
 
 function TodoList(props: TodoListProps) {
 
@@ -24,12 +33,16 @@ function TodoList(props: TodoListProps) {
         enterEditMode(id!);
     };
 
+
     return (
         <>
-            <input type="checkbox" className="toggle-all" id="toggle-all" onClick={() => props.completeAll()}/>
+            <input type="checkbox" className="toggle-all" id="toggle-all"
+                   checked={props.activeItems === 0}
+                   onChange={() => props.completeAll()}
+                   aria-label="toggle all checkbox"/>
             <label htmlFor="toggle-all">Mark all as complete</label>
             <ul className="todo-list">
-                {props.filteredList.map(todo => {
+                {props.todoList.map(todo => {
                     return (
                         <li className={classNames({
                             'completed': todo.completed,

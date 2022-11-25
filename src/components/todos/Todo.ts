@@ -1,4 +1,4 @@
-export default interface Todo {
+type Todo = {
 
     id: number;
     title: string;
@@ -6,3 +6,5 @@ export default interface Todo {
     order: number;
     url: string
 }
+
+export default Todo;
