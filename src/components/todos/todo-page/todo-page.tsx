@@ -27,7 +27,7 @@ function TodoPage({filter}: TodoPageProps) {
         <section className="todoapp">
             <header className="header">
                 <h1>todos</h1>
-                <TodoListHeader onAdd={(e) => add(e)}
+                <TodoListHeader onAdd={(title: string) => add(title)}
                 />
             </header>
             {
