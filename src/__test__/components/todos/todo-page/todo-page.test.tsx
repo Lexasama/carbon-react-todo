@@ -19,7 +19,7 @@ describe("TodoPage should", () => {
             },
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [],
             completeOne: () => {
@@ -45,7 +45,7 @@ describe("TodoPage should", () => {
             },
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [],
             completeOne: () => {
@@ -71,7 +71,7 @@ describe("TodoPage should", () => {
                 },
                 clearCompleted: () => {
                 },
-                add: () => {
+                add: async () => {
                 },
                 filteredList: [],
                 completeOne: () => {
@@ -130,7 +130,7 @@ describe("TodoPage should", () => {
             },
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [{id: 1, title: "todo1", completed: false, order: 1, url: ""}],
             completeOne: () => {
@@ -158,7 +158,7 @@ describe("TodoPage should", () => {
             completeAll: () => {
             },
             clearCompleted: mockClearCompleted,
-            add: () => {
+            add: async () => {
             },
             filteredList: [{id: 1, title: "todo1", completed: true, order: 1, url: ""}],
             completeOne: () => {
@@ -188,7 +188,7 @@ describe("TodoPage should", () => {
             },
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [{id: 1, title: "todo1", completed: true, order: 1, url: ""}],
             completeOne: () => {
@@ -213,7 +213,7 @@ describe("TodoPage should", () => {
             },
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [{id: 1, title: "todo1", completed: false, order: 1, url: ""}],
             completeOne: () => {
@@ -244,7 +244,7 @@ describe("TodoPage should", () => {
             completeAll: mockCompletedAll,
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [{id: 1, title: "todo1", completed: true, order: 1, url: ""}],
             completeOne: () => {
@@ -276,7 +276,7 @@ describe("TodoPage should", () => {
             },
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [{id: 1, title: "todo1", completed: true, order: 1, url: ""}],
             completeOne: mockCompleteOne,
@@ -304,7 +304,7 @@ describe("TodoPage should", () => {
             },
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [{id: 1, title: "todo1", completed: false, order: 1, url: ""}],
             completeOne: () => {
@@ -332,7 +332,7 @@ describe("TodoPage should", () => {
             },
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [{id: 1, title: "todo1", completed: true, order: 1, url: ""}],
             completeOne: () => {
@@ -362,7 +362,7 @@ describe("TodoPage should", () => {
             },
             clearCompleted: () => {
             },
-            add: () => {
+            add: async () => {
             },
             filteredList: [{id: 1, title: "todo1", completed: true, order: 1, url: ""}],
             completeOne: () => {

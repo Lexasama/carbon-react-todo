@@ -97,7 +97,7 @@ const useTodoFetchHook = (filter: TodoListFilter = TodoListFilter.ALL) => {
             await deleteCompleted();
             await getList();
         } catch (e) {
-            console.error(e)
+            console.error(e);
         }
     }
 

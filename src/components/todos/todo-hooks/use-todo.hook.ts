@@ -7,11 +7,9 @@ const useTodoHook = (filter: TodoListFilter = TodoListFilter.ALL) => {
 
     const [todoList, setTodoList] = useState<Array<Todo>>([]);
 
-    const completedList = filterList(todoList, TodoListFilter.COMPLETED);
+    const completedItems = filterList(todoList, TodoListFilter.COMPLETED).length;
 
-    const completedItems = completedList.length;
-
-    function add(title: string) {
+    async function add(title: string) {
 
         if (title.trim().length > 0) {
             let newId = 0;
