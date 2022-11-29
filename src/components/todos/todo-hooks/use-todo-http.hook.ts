@@ -9,6 +9,19 @@ type TodoUpdate = {
     completed: boolean
     order: number
 }
+const useTodoHttp = () => {
+
+    return {
+        getAll,
+        create,
+        update,
+        deleteOne,
+        deleteCompleted,
+        updateCompleteAll
+    }
+}
+
+export default useTodoHttp;
 
 export async function getAll(): Promise<Array<Todo>> {
     return toJSON(await getAsync(endpoint));
