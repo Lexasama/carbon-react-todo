@@ -23,7 +23,7 @@ afterAll(() => server.close())
 
 describe("TodoPage should", () => {
 
-    it("return the inititial state", async () => {
+    it("return the initial state", async () => {
         expect(reducer(undefined, {type: undefined})).toEqual({todos: {todoList: []}});
     });
 

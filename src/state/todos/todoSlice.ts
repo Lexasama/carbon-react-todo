@@ -127,7 +127,7 @@ export const todoSlice = createSlice({
     }
 });
 
-export const {create, edit, completeAll, removeCompleted, removeOne, toggleCompleted} = todoSlice.actions;
+export const {create, edit, completeAll, toggleCompleted} = todoSlice.actions;
 
 export const selectTodos = (state:
                                 RootState) => state.todos.todoList;
