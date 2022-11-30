@@ -27,12 +27,12 @@ export async function getAll(): Promise<Array<Todo>> {
     return toJSON(await getAsync(endpoint));
 }
 
-export async function create(title: string): Promise<Todo> {
-    return toJSON(await postAsync(endpoint, {title}));
+export async function create(title: string) {
+    return await postAsync(endpoint, {title});
 }
 
 export async function update(id: number, todo: TodoUpdate) {
-    return putAsync(`${endpoint}/${id}`, todo);
+    return await putAsync(`${endpoint}/${id}`, todo);
 }
 
 export async function deleteOne(id: number) {

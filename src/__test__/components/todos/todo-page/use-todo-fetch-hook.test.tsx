@@ -80,9 +80,9 @@ describe("use-todo-http hook should", () => {
             const {result} = renderHook(() => useTodoHttpHook());
 
             const response = await result.current.create(title);
-
+        const data = await response.json();
             await waitFor(() => {
-                expect(response).toStrictEqual(addedTodo);
+                expect(data).toStrictEqual(addedTodo);
             });
         }
     );

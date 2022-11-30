@@ -3,7 +3,9 @@ export async function toJSON(resp: Response) {
     if (result) return JSON.parse(result);
 }
 
-async function send(url: string, method: string, data?: any, contentType?: string): Promise<Response> {
+type RequestMethod = 'POST' | 'PUT' | 'DELETE' | 'GET';
+
+async function send(url: string, method: RequestMethod, data?: any, contentType?: string): Promise<Response> {
     let options: any = {
         method: method,
         headers: {
@@ -14,7 +16,7 @@ async function send(url: string, method: string, data?: any, contentType?: strin
     if (data) options.body = JSON.stringify(data);
     if (contentType) options.headers['Content-Type'] = contentType;
 
-  return await fetch(url, options);
+    return await fetch(url, options);
 }
 
 export function postAsync(url: string, data: any) {
