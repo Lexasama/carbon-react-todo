@@ -15,7 +15,7 @@ import {
     selectActiveItems,
     selectCompletedItems,
     selectTodos,
-    toggleCompleted,
+    updateCompletedAsync,
     updateCompleteAllAsync
 } from "../../../state/todos/todoSlice";
 
@@ -32,10 +32,10 @@ function TodoPage({filter}: TodoPageProps) {
 
     useEffect(() => {
         dispatch(fetchAll());
-    }, []);
+    }, [dispatch]);
 
     const completeOne = (id: number) => {
-        dispatch(toggleCompleted(id));
+        dispatch(updateCompletedAsync(id));
     }
 
     const handleEdit = (todo: Todo) => {
